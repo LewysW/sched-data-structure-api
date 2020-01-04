@@ -1,5 +1,7 @@
 #ifndef STARDUST_EXPERIMENTAL_SCHED_API_H
 #define STARDUST_EXPERIMENTAL_SCHED_API_H
+#include <stdint.h>
+#include <stdbool.h>
 
 typedef struct ThreadMap_s { } ThreadMap_s;
 
@@ -15,9 +17,9 @@ struct thread* at(ThreadMap_s* threadMap, int index);
 
 void add(ThreadMap_s* threadMap, struct thread* thread);
 
-void deleteThread(ThreadMap_s* threadMap, struct thread* thread);
+void erase(ThreadMap_s* threadMap, struct thread* thread);
 
-void deleteID(ThreadMap_s* threadMap, uint16_t id);
+void eraseID(ThreadMap_s* threadMap, uint16_t id);
 
 int size(ThreadMap_s* threadMap);
 

@@ -17,17 +17,29 @@ struct thread* getThread(ThreadMap_s* threadMap, uint16_t id) {
     return ((ThreadMap*)(threadMap))->getThread(id);
 }
 
-struct thread* at(ThreadMap_s* threadMap, int index);
+struct thread* at(ThreadMap_s* threadMap, int index) {
+    return ((ThreadMap*)(threadMap))->at(index);
+}
 
-void add(ThreadMap_s* threadMap, struct thread* thread);
+void add(ThreadMap_s* threadMap, struct thread* thread) {
+    ((ThreadMap*)(threadMap))->add(thread);
+}
 
-void deleteThread(ThreadMap_s* threadMap, struct thread* thread);
+void erase(ThreadMap_s* threadMap, struct thread* thread) {
+    ((ThreadMap*)(threadMap))->erase(thread);
+}
 
-void deleteID(ThreadMap_s* threadMap, uint16_t id);
+void eraseID(ThreadMap_s* threadMap, uint16_t id) {
+    ((ThreadMap*)(threadMap))->erase(id);
+}
 
-int size(ThreadMap_s* threadMap);
+int size(ThreadMap_s* threadMap) {
+    return ((ThreadMap*)(threadMap))->size();
+}
 
-bool empty(ThreadMap_s* threadMap);
+bool empty(ThreadMap_s* threadMap) {
+    return ((ThreadMap*)(threadMap))->empty();
+}
 
 #ifdef __cplusplus
 }

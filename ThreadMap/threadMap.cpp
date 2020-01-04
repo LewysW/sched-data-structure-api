@@ -21,25 +21,25 @@ Adds a thread to the vector and map using its id
 void ThreadMap::add(struct thread* thread) {
     uint16_t id = thread->id;
     elements.push_back(id);
-    threadMap.insert(std::pair<uint16_t, struct thread*>(id, thread));
+    data.insert(std::pair<uint16_t, struct thread*>(id, thread));
 }
 
 /**
 Given a thread, deletes its id from the element vector and thread map if it exists
 **/
-void ThreadMap::delete(struct thread* thread) {
+void ThreadMap::erase(struct thread* thread) {
     uint16_t id = thread->id;
 
-    this->delete(id);
+    this->erase(id);
 }
 
 /**
 Given an id, deletes the corresponding thread if it is in the map/vector
 **/
-void ThreadMap::delete(uint16_t id) {
+void ThreadMap::erase(uint16_t id) {
     //Code to find id in vector using iterator:
     //https://stackoverflow.com/questions/3385229/c-erase-vector-element-by-value-rather-than-by-position
-    std::vector<int>::iterator position = std::find(elements.begin(), elements.end(), id);
+    std::vector<uint16_t>::iterator position = std::find(elements.begin(), elements.end(), id);
 
     //If item is found in vector, delete from vector and map
     if (position != elements.end()) {

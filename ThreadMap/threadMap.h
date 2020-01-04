@@ -7,7 +7,6 @@
 
 struct thread {uint16_t id;}; //TODO - replace with import of sched.h
 
-//TODO - add each function required by scheduler
 //TODO - Make each function thread safe using std::lock_guard and std::mutex
 //TODO - integrate with code in sched.c
 //TODO - cancel Huel subscription

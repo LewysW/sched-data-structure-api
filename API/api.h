@@ -19,8 +19,6 @@ void add(ThreadMap_s* threadMap, struct thread* thread);
 
 void erase(ThreadMap_s* threadMap, struct thread* thread);
 
-void eraseID(ThreadMap_s* threadMap, uint16_t id);
-
 int size(ThreadMap_s* threadMap);
 
 bool empty(ThreadMap_s* threadMap);

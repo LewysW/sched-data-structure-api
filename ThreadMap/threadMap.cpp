@@ -4,6 +4,7 @@
 Gets a thread by id
 **/
 struct thread* ThreadMap::getThread(uint16_t id) {
+    std::lock_guard<std::mutex> guard(data_mutex);
     return data.at(id);
 }
 
@@ -11,6 +12,9 @@ struct thread* ThreadMap::getThread(uint16_t id) {
 Gets the thread corresponding to the id at the given vector index
 **/
 struct thread* ThreadMap::at(int index) {
+    std::lock_guard<std::mutex> data_guard(data_mutex);
+    std::lock_guard<std::mutex> element_guard(element_mutex);
+
     uint16_t id = elements.at(index);
     return data.at(id);
 }
@@ -19,6 +23,9 @@ struct thread* ThreadMap::at(int index) {
 Adds a thread to the vector and map using its id
 **/
 void ThreadMap::add(struct thread* thread) {
+    std::lock_guard<std::mutex> data_guard(data_mutex);
+    std::lock_guard<std::mutex> element_guard(element_mutex);
+
     uint16_t id = thread->id;
     elements.push_back(id);
     data.insert(std::pair<uint16_t, struct thread*>(id, thread));
@@ -28,23 +35,19 @@ void ThreadMap::add(struct thread* thread) {
 Given a thread, deletes its id from the element vector and thread map if it exists
 **/
 void ThreadMap::erase(struct thread* thread) {
-    uint16_t id = thread->id;
+    std::lock_guard<std::mutex> data_guard(data_mutex);
+    std::lock_guard<std::mutex> element_guard(element_mutex);
 
-    this->erase(id);
-}
+    //Checks if item is in map
+    std::map<uint16_t, struct thread*>::iterator it = data.find(thread->id);
 
-/**
-Given an id, deletes the corresponding thread if it is in the map/vector
-**/
-void ThreadMap::erase(uint16_t id) {
-    //Code to find id in vector using iterator:
-    //https://stackoverflow.com/questions/3385229/c-erase-vector-element-by-value-rather-than-by-position
-    std::vector<uint16_t>::iterator position = std::find(elements.begin(), elements.end(), id);
-
-    //If item is found in vector, delete from vector and map
-    if (position != elements.end()) {
+    //If item is in map, then finds location in vector and deletes, then
+    //deletes from map
+    if (it != data.end()) {
+        std::vector<uint16_t>::iterator position;
+        position = std::find(elements.begin(), elements.end(), thread->id);
         elements.erase(position);
-        data.erase(id);
+        data.erase(thread->id);
     }
 }
 
@@ -52,6 +55,7 @@ void ThreadMap::erase(uint16_t id) {
 Gets the size of the thread map
 **/
 int ThreadMap::size() {
+    std::lock_guard<std::mutex> data_guard(data_mutex);
     return data.size();
 }
 
@@ -59,5 +63,6 @@ int ThreadMap::size() {
 Gets whether the thread map is empty
 **/
 bool ThreadMap::empty() {
+    std::lock_guard<std::mutex> data_guard(data_mutex);
     return data.empty();
 }

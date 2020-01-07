@@ -48,11 +48,11 @@ int main() {
     printf("Size: %d\n", size(threadMap));
     erase(threadMap, t2);
     printf("Size: %d\n", size(threadMap));
-    eraseID(threadMap, 30);
+    erase(threadMap, t3);
     printf("Size: %d\n", size(threadMap));
-    eraseID(threadMap, 40);
+    erase(threadMap, t4);
     printf("Size: %d\n", size(threadMap));
-    eraseID(threadMap, 50);
+    erase(threadMap, t5);
     printf("Size: %d\n", size(threadMap));
 
     printf("Empty?: %d\n", empty(threadMap));

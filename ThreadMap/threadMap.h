@@ -4,6 +4,7 @@
 #include <map>
 #include <vector>
 #include <algorithm>
+#include <mutex>
 
 struct thread {uint16_t id;}; //TODO - replace with import of sched.h
 
@@ -15,6 +16,8 @@ class ThreadMap {
 private:
     std::map<uint16_t, struct thread*> data;
     std::vector<uint16_t> elements;
+    std::mutex data_mutex;
+    std::mutex element_mutex;
 public:
     ThreadMap() {std::cout << "Creating new ThreadMap!" << std::endl;}
 

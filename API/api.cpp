@@ -29,10 +29,6 @@ void erase(ThreadMap_s* threadMap, struct thread* thread) {
     ((ThreadMap*)(threadMap))->erase(thread);
 }
 
-void eraseID(ThreadMap_s* threadMap, uint16_t id) {
-    ((ThreadMap*)(threadMap))->erase(id);
-}
-
 int size(ThreadMap_s* threadMap) {
     return ((ThreadMap*)(threadMap))->size();
 }

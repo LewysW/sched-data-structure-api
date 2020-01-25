@@ -1,8 +1,8 @@
 all: clean interface application
 
 interface:
-	g++ -static -c ThreadMap/threadMap.cpp API/api.cpp -std=c++17
-	ar rcs libinterface.a threadMap.o api.o
+	g++ -static -c ThreadMap/threadMap.cpp DoublyLinkedList/doublyLinkedList.cpp API/api.cpp -std=c++17
+	ar rcs libinterface.a threadMap.o doublyLinkedList.o api.o
 
 application:
 	gcc -c main.c

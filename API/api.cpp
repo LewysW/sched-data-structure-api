@@ -17,10 +17,6 @@ struct thread* getThread(ThreadMap_s* threadMap, uint16_t id) {
     return ((ThreadMap*)(threadMap))->getThread(id);
 }
 
-struct thread* at(ThreadMap_s* threadMap, int index) {
-    return ((ThreadMap*)(threadMap))->at(index);
-}
-
 void add(ThreadMap_s* threadMap, struct thread* thread) {
     ((ThreadMap*)(threadMap))->add(thread);
 }
@@ -35,6 +31,22 @@ int size(ThreadMap_s* threadMap) {
 
 bool empty(ThreadMap_s* threadMap) {
     return ((ThreadMap*)(threadMap))->empty();
+}
+
+struct thread* front(ThreadMap_s* threadMap) {
+    return ((ThreadMap*)(threadMap))->front();
+}
+
+struct thread* back(ThreadMap_s* threadMap) {
+    return ((ThreadMap*)(threadMap))->back();
+}
+
+struct thread* next(ThreadMap_s* threadMap, struct thread* element) {
+    return ((ThreadMap*)(threadMap))->next(element);
+}
+
+struct thread* previous(ThreadMap_s* threadMap, struct thread* element) {
+    return ((ThreadMap*)(threadMap))->previous(element);
 }
 
 #ifdef __cplusplus

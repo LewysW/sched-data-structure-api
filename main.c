@@ -33,15 +33,24 @@ int main() {
 
     printf("Empty?: %d\n", empty(threadMap));
 
+    struct thread* current = front(threadMap);
+
+    while (current != NULL) {
+         printf("Thread in loop: %d\n", current->id);
+         current = next(threadMap, current);
+    }
+
+    current = back(threadMap);
+
+    while (current != NULL) {
+         printf("Thread in loop: %d\n", current->id);
+         current = previous(threadMap, current);
+    }
     printf("Thread ID: %d\n", getThread(threadMap, 10)->id);
     printf("Thread ID: %d\n", getThread(threadMap, 20)->id);
     printf("Thread ID: %d\n", getThread(threadMap, 30)->id);
     printf("Thread ID: %d\n", getThread(threadMap, 40)->id);
     printf("Thread ID: %d\n", getThread(threadMap, 50)->id);
-
-    for (int i = 0; i < size(threadMap); i++) {
-        printf("Element at(%d): %d\n", i, at(threadMap, i)->id);
-    }
 
     printf("Size: %d\n", size(threadMap));
     erase(threadMap, t1);

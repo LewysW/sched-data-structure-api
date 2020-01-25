@@ -1,29 +1,25 @@
 #ifndef STARDUST_EXPERIMENTAL_THREAD_MAP_H
 #define STARDUST_EXPERIMENTAL_THREAD_MAP_H
+#include "../DoublyLinkedList/doublyLinkedList.h"
 #include <iostream>
 #include <map>
 #include <vector>
 #include <algorithm>
 #include <mutex>
 
-struct thread {uint16_t id;}; //TODO - replace with import of sched.h
-
-//TODO - Make each function thread safe using std::lock_guard and std::mutex
 //TODO - integrate with code in sched.c
 //TODO - cancel Huel subscription
 
 class ThreadMap {
 private:
-    std::map<uint16_t, struct thread*> data;
-    std::vector<uint16_t> elements;
+    std::map<uint16_t, DoublyLinkedListNode*> data;
+    DoublyLinkedList elements;
     std::mutex data_mutex;
     std::mutex element_mutex;
 public:
     ThreadMap() {std::cout << "Creating new ThreadMap!" << std::endl;}
 
     struct thread* getThread(uint16_t id);
-
-    struct thread* at(int index);
 
     void add(struct thread* thread);
 
@@ -34,6 +30,14 @@ public:
     int size();
 
     bool empty();
+
+    struct thread* front();
+
+    struct thread* back();
+
+    struct thread* next(struct thread* element);
+
+    struct thread* previous(struct thread* element);
 };
 
 

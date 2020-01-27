@@ -1,5 +1,5 @@
 #include "doublyLinkedList.h"
-#include <cstdlib>
+#include <stdlib.h>
 
 void DoublyLinkedList::insertAfter(struct thread* element, DoublyLinkedListNode* predecessor) {
     if (currentSize == 0) {

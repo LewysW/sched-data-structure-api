@@ -10,13 +10,17 @@ private:
     int size;
     MapItem* table[MAX_SIZE];
 
-private:
+public:
     MapItem* at(int key);
+
     void insert(int key, DoublyLinkedListNode* value);
+
     void erase(MapItem* item);
-    int size();
+
+    int getSize();
+
     bool empty();
 
-}
+};
 
 #endif

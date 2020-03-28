@@ -9,9 +9,13 @@ private:
     int currentSize = 0;
 
 public:
-    void insertAfter(struct thread* element, DoublyLinkedListNode* predecessor);
+    void insertBefore(void* key, void* element, DoublyLinkedListNode* successor);
 
-    void emplaceBack(struct thread* element);
+    void insertAfter(void* key, void* element, DoublyLinkedListNode* predecessor);
+
+    void push(void* key, void* element);
+
+    void emplaceBack(void* key, void* element);
 
     void remove(DoublyLinkedListNode* node);
     

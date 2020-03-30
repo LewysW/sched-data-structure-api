@@ -16,44 +16,46 @@ int main() {
 	t4->id = 13;
 
 	printf("Size of map: %d\n", size(map));
-	add(map, &t1->id, t1);
+	add(map, (void*) t1->id, t1);
 	printf("Size of map: %d\n", size(map));
-	add(map, &t2->id, t2);
+	add(map, (void*) t2->id, t2);
 	printf("Size of map: %d\n", size(map));
-	add(map, &t3->id, t3);
+	add(map, (void*) t3->id, t3);
 	printf("Size of map: %d\n", size(map));
-	add(map, &t4->id, t4);
+	add(map, (void*) t4->id, t4);
 	printf("Size of map: %d\n", size(map));
 
+  printf("id: %d\n", id);
+  printf("pid: %p\n", pid);
 	struct thread* currentThread = (struct thread*) front(map);
 
 	while (currentThread != NULL) {
 		printf("Thread in loop: %d\n", currentThread->id);
-		currentThread = (struct thread*) next(map, &currentThread->id);
+		currentThread = (struct thread*) next(map, (void*) currentThread->id);
 	}
 
     struct thread* t5 = (struct thread*) malloc(sizeof(struct thread));
     t5->id = 99;
 
     printf("Inserting thread with id %d before thread with id %d\n", t5->id, t1->id);
-    insert(map, t5, &t5->id, &t5->id);    
+    insert(map, (void*) t5->id, t5, (void*) t1->id);
 
     currentThread = (struct thread*) front(map);
 
 	while (currentThread != NULL) {
 		printf("Thread in loop: %d\n", currentThread->id);
-		currentThread = (struct thread*) next(map, &currentThread->id);
+		currentThread = (struct thread*) next(map, (void*) currentThread->id);
 	}
 
 
 	printf("Size of map: %d\n", size(map));
-    erase(map, &t1->id);
+    erase(map, (void*) t1->id);
     printf("Size of map: %d\n", size(map));
-    erase(map, &t2->id);
+    erase(map, (void*) t2->id);
     printf("Size of map: %d\n", size(map));
-    erase(map, &t3->id);
+    erase(map, (void*) t3->id);
     printf("Size of map: %d\n", size(map));
-    erase(map, &t4->id);
+    erase(map, (void*) t4->id);
     printf("Size of map: %d\n", size(map));
 
     return 0;

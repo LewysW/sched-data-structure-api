@@ -1,6 +1,13 @@
 #include "cpp/Map.h"
 
 /**
+ * Checks whether an entry is contained within the map
+**/
+bool Map::contains(void* key) {
+    std::lock_guard<std::recursive_mutex> data_guard(data_mutex);
+    return data.find(key) != data.end();
+}
+/**
 Gets a thread by id
 **/
 void* Map::get(void* key) {
@@ -28,13 +35,10 @@ Given a thread, deletes its id from the linked list and thread map if it exists
 **/
 void Map::erase(void* key) {
     std::lock_guard<std::recursive_mutex> data_guard(data_mutex);
-    //Checks if item is in map
-    std::map<void*, DoublyLinkedListNode*>::iterator it = data.find(key);
-
     //If item is in map, then finds location in vector and deletes, then
     //deletes from map
-    if (it != data.end()) {
-        elements.remove(it->second);
+    if (contains(key)) {
+        elements.remove(data[key]);
         data.erase(key);
     }
 }

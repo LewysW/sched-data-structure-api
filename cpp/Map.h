@@ -14,6 +14,8 @@ private:
 public:
     Map() = default;
 
+    bool contains(void* key);
+
     void* get(void* key);
 
     void add(void* key, void* element);

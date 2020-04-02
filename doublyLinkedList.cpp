@@ -26,7 +26,7 @@ void DoublyLinkedList::insertBefore(void* key, void* element, DoublyLinkedListNo
                     //Updates successor->previous->next to new_node
                     successor->previous->next = new_node;
                 }
-                
+
                 //Updates successor previous to new_node
                 successor->previous = new_node;
 
@@ -62,7 +62,7 @@ void DoublyLinkedList::insertAfter(void* key, void* element, DoublyLinkedListNod
                 if (predecessor->next != NULL) {
                     predecessor->next->previous = new_node;
                 }
-                
+
                 predecessor->next = new_node;
 
                 //If next is NULL, new_node becomes tail node

@@ -37,6 +37,16 @@
         "stdexcept": "cpp",
         "streambuf": "cpp",
         "utility": "cpp",
-        "typeinfo": "cpp"
+        "typeinfo": "cpp",
+        "atomic": "cpp",
+        "condition_variable": "cpp",
+        "cstddef": "cpp",
+        "map": "cpp",
+        "memory": "cpp",
+        "memory_resource": "cpp",
+        "optional": "cpp",
+        "string": "cpp",
+        "string_view": "cpp",
+        "thread": "cpp"
     }
 }

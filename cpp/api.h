@@ -10,6 +10,8 @@ extern "C" {
 
 Map_s* createMap();
 
+int contains(Map_s* map, void* key);
+
 void* get(Map_s* map, void* key);
 
 void add(Map_s* map, void* key, void* element);

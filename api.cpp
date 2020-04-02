@@ -13,6 +13,10 @@ Map_s* createMap() {
     return (Map_s*) new Map;
 }
 
+int contains(Map_s* map, void* key) {
+    return ((Map*)(map))->contains(key);
+}
+
 void* get(Map_s* map, void* key) {
     return ((Map*)(map))->get(key);
 }

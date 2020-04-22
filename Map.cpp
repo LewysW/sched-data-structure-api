@@ -12,7 +12,7 @@ Gets a thread by id
 **/
 void* Map::get(void* key) {
     std::lock_guard<std::recursive_mutex> data_guard(data_mutex);
-    return data[key]->element;
+    return this->contains(key) ? data[key]->element : NULL;
 }
 
 /**
@@ -93,8 +93,8 @@ void* Map::previous(void* key) {
     std::lock_guard<std::recursive_mutex> data_guard(data_mutex);
 
     DoublyLinkedListNode* node = data[key]->previous;
-    
-    return (node) ? data[key]->previous->element : NULL; 
+
+    return (node) ? data[key]->previous->element : NULL;
 }
 
 void Map::lock() {
@@ -104,4 +104,3 @@ void Map::lock() {
 void Map::unlock() {
     data_mutex.unlock();
 }
-

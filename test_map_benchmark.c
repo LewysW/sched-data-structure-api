@@ -10,19 +10,19 @@ void test_map_benchmark() {
 	for (int test_run = 0; test_run < NUM_READINGS; test_run++) {
     for (int num_test_threads = INCREMENT; num_test_threads <= MAX_NUM_THREADS; num_test_threads += INCREMENT) {
       //Populate map with threads
-      map_init_threads(num_test_threads);
-
-      //Lookup threads by ID (simluates work done by join_thread lookup)
-      //map_lookup_threads();
-
-      //Removes threads from list
       clock_t begin = clock();
-      map_clear_threads();
+      map_init_threads(num_test_threads);
       clock_t end = clock();
 
       double duration = (double)(end - begin) / (CLOCKS_PER_SEC / 1000);
 
       printf("%d, %lf\n", num_test_threads, duration);
+
+      //Lookup threads by ID (simluates work done by join_thread lookup)
+      //map_lookup_threads();
+
+      //Removes threads from list
+      map_clear_threads();
     }
 }
 

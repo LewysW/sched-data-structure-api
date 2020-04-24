@@ -5,20 +5,18 @@
 
 class DoublyLinkedListNode {
 public:
-    void* key;
     void* element;
     DoublyLinkedListNode* next;
     DoublyLinkedListNode* previous;
 
-    DoublyLinkedListNode(void* key, void* element) : key(key),
-                                                    element(element),
-                                                    next(NULL),
-                                                    previous(NULL)
+    DoublyLinkedListNode(void* element) : element(element),
+                                        next(NULL),
+                                        previous(NULL)
     {
     }
 
-    DoublyLinkedListNode(void* key, void* element, DoublyLinkedListNode* next, DoublyLinkedListNode* previous) :
-        key(key),
+    DoublyLinkedListNode(void* element, DoublyLinkedListNode* next,
+                                        DoublyLinkedListNode* previous) :
         element(element),
         next(next),
         previous(previous)
@@ -26,4 +24,3 @@ public:
     }
 };
 #endif
-

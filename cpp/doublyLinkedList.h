@@ -9,19 +9,13 @@ private:
     int currentSize = 0;
 
 public:
-    void insertBefore(void* key, void* element, DoublyLinkedListNode* successor);
+    void insertBefore(void* element, DoublyLinkedListNode* successor);
 
-    void insertAfter(void* key, void* element, DoublyLinkedListNode* predecessor);
-
-    void push(void* key, void* element);
-
-    void emplaceBack(void* key, void* element);
+    void insertAfter(void* element, DoublyLinkedListNode* predecessor);
 
     void remove(DoublyLinkedListNode* node);
-    
+
     int size();
-    
-    void clear();
 
     DoublyLinkedListNode* getRoot();
 

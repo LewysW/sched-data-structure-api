@@ -1,9 +1,9 @@
 #include "cpp/doublyLinkedList.h"
 #include <stdlib.h>
 
-void DoublyLinkedList::insertBefore(void* key, void* element, DoublyLinkedListNode* successor) {
+void DoublyLinkedList::insertBefore(void* element, DoublyLinkedListNode* successor) {
     if (currentSize == 0) {
-            tail = new DoublyLinkedListNode(key, element);
+            tail = new DoublyLinkedListNode(element);
             root = tail;
         }
         else {
@@ -12,14 +12,14 @@ void DoublyLinkedList::insertBefore(void* key, void* element, DoublyLinkedListNo
             //If tail node
             if (successor == NULL) {
                 //Set next to NULL and previous to current tail
-                new_node = new DoublyLinkedListNode(key, element, NULL, tail);
+                new_node = new DoublyLinkedListNode(element, NULL, tail);
                 tail->next = new_node;
                 //Sets tail to new_node
                 tail = new_node;
             //Otherwise if any other node
             } else {
                 //Sets next to successor and previous to successor previous
-                new_node = new DoublyLinkedListNode(key, element, successor, successor->previous);
+                new_node = new DoublyLinkedListNode(element, successor, successor->previous);
 
                 if (successor->previous != NULL) {
                     //Updates successor->previous->next to new_node
@@ -37,9 +37,9 @@ void DoublyLinkedList::insertBefore(void* key, void* element, DoublyLinkedListNo
         currentSize++;
 }
 
-void DoublyLinkedList::insertAfter(void* key, void* element, DoublyLinkedListNode* predecessor) {
+void DoublyLinkedList::insertAfter(void* element, DoublyLinkedListNode* predecessor) {
     if (currentSize == 0) {
-            tail = new DoublyLinkedListNode(key, element);
+            tail = new DoublyLinkedListNode(element);
             root = tail;
         }
         else {
@@ -48,14 +48,14 @@ void DoublyLinkedList::insertAfter(void* key, void* element, DoublyLinkedListNod
             //If root node
             if (predecessor == NULL) {
                 //Set previous to NULL and next to current root
-               new_node = new DoublyLinkedListNode(key, element, root, NULL);
+                new_node = new DoublyLinkedListNode(element, root, NULL);
                 //Sets root previous to new_node
                 root->previous = new_node;
                 //Sets root to new_node
                 root = new_node;
             //Otherwise if any other node
             } else {
-                new_node = new DoublyLinkedListNode(key, element, predecessor->next, predecessor);
+                new_node = new DoublyLinkedListNode(element, predecessor->next, predecessor);
 
                 if (predecessor->next != NULL) {
                     predecessor->next->previous = new_node;
@@ -71,50 +71,35 @@ void DoublyLinkedList::insertAfter(void* key, void* element, DoublyLinkedListNod
         currentSize++;
 }
 
-//Insert the element at the front of the list
-void DoublyLinkedList::push(void* key, void* element) {
-    insertBefore(key, element, getRoot());
-}
-
-//Insert the element at the back of the list
-void DoublyLinkedList::emplaceBack(void* key, void* element) {
-    insertAfter(key, element, getTail());
-}
-
 void DoublyLinkedList::remove(DoublyLinkedListNode* node) {
-  //If final node is being deleted, reset root and tail
-  if (currentSize == 1) {
-      root = tail = NULL;
-  } else {
-      //Update pointers
-      //Check to avoid NULL dereference
-      if (node != root) {
-          node->previous->next = node->next;
-      } else {
-          root = node->next;
-      }
+    //If final node is being deleted, reset root and tail
+    if (currentSize == 1) {
+        root = tail = NULL;
+    } else {
+        //Update pointers
+        //Check to avoid NULL dereference
+        if (node != root) {
+            node->previous->next = node->next;
+        } else {
+            root = node->next;
+        }
 
-      //Update pointers
-      //Check to avoid NULL dereference
-      if (node != tail) {
-          node->next->previous = node->previous;
-      } else {
-          tail = node->previous;
-      }
-  }
+        //Update pointers
+        //Check to avoid NULL dereference
+        if (node != tail) {
+            node->next->previous = node->previous;
+        } else {
+            tail = node->previous;
+        }
+    }
 
-  //Decrement current size and free node
-  currentSize--;
-  delete(node);
+    //Decrement current size and free node
+    currentSize--;
+    delete(node);
 }
 
 int DoublyLinkedList::size() {
     return currentSize;
-}
-
-void DoublyLinkedList::clear() {
-    root = tail = NULL;
-    currentSize = 0;
 }
 
 DoublyLinkedListNode* DoublyLinkedList::getRoot() {

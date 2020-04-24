@@ -1,6 +1,17 @@
 #include "cpp/Map.h"
 
 /**
+ * Clears all entries in the map (including deallocation of memory)
+**/
+void Map::clear() {
+    std::lock_guard<std::recursive_mutex> data_guard(data_mutex);
+    while (elements.size() > 0) {
+        elements.remove(elements.getRoot());
+    }
+    data.clear();
+}
+
+/**
  * Checks whether an entry is contained within the map
 **/
 bool Map::contains(void* key) {
@@ -12,7 +23,8 @@ Gets a thread by id
 **/
 void* Map::get(void* key) {
     std::lock_guard<std::recursive_mutex> data_guard(data_mutex);
-    return this->contains(key) ? data[key]->element : NULL;
+    auto object = data.find(key);
+    return (object != data.end()) ? object->second->element : NULL;
 }
 
 /**
@@ -20,14 +32,16 @@ Adds a thread to the end of the linked list and then to the map
 **/
 void Map::add(void* key, void* element) {
     std::lock_guard<std::recursive_mutex> data_guard(data_mutex);
-    elements.emplaceBack(key, element);
-    data.insert(std::pair<void*, DoublyLinkedListNode*>(key, elements.getTail()));
+    elements.insertAfter(element, elements.getTail());
+    data[key] = elements.getTail();
+    //data.insert(std::pair<void*, DoublyLinkedListNode*>(key, elements.getTail()));
 }
 
 void Map::insert(void* key_prev, void* element_prev, void* key_next) {
     std::lock_guard<std::recursive_mutex> data_guard(data_mutex);
-    elements.insertBefore(key_prev, element_prev, data[key_next]);
-    data.insert(std::pair<void*, DoublyLinkedListNode*>(key_prev, data[key_next]->previous));
+    elements.insertBefore(element_prev, data[key_next]);
+    data[key_prev] = data[key_next]->previous;
+    //data.insert(std::pair<void*, DoublyLinkedListNode*>(key_prev, data[key_next]->previous));
 }
 
 /**
@@ -35,11 +49,13 @@ Given a thread, deletes its id from the linked list and thread map if it exists
 **/
 void Map::erase(void* key) {
     std::lock_guard<std::recursive_mutex> data_guard(data_mutex);
-    //If item is in map, then finds location in vector and deletes, then
+    //If item is in map, then
     //deletes from map
-    if (contains(key)) {
-        elements.remove(data[key]);
-        data.erase(key);
+    auto object = data.find(key);
+
+    if (object != data.end()) {
+        elements.remove(object->second);
+        data.erase(object);
     }
 }
 
@@ -48,7 +64,7 @@ Gets the size of the thread map
 **/
 int Map::size() {
     std::lock_guard<std::recursive_mutex> data_guard(data_mutex);
-    return data.size();
+    return elements.size();
 }
 
 /**
@@ -56,7 +72,7 @@ Gets whether the thread map is empty
 **/
 bool Map::empty() {
     std::lock_guard<std::recursive_mutex> data_guard(data_mutex);
-    return data.empty();
+    return elements.size() == 0;
 }
 
 /**
@@ -81,9 +97,11 @@ Gets the next thread in the linked list after the current thread
 void* Map::next(void* key) {
     std::lock_guard<std::recursive_mutex> data_guard(data_mutex);
 
-    DoublyLinkedListNode* node = data[key]->next;
+    DoublyLinkedListNode* node;
+    auto object = data.find(key);
 
-    return (node) ? data[key]->next->element : NULL;
+    node = (object != data.end()) ? object->second->next : NULL;
+    return (node) ? node->element : NULL;
 }
 
 /**
@@ -92,15 +110,9 @@ Gets the previous thread in the linked list before the current thread
 void* Map::previous(void* key) {
     std::lock_guard<std::recursive_mutex> data_guard(data_mutex);
 
-    DoublyLinkedListNode* node = data[key]->previous;
+    DoublyLinkedListNode* node;
+    auto object = data.find(key);
 
-    return (node) ? data[key]->previous->element : NULL;
-}
-
-void Map::lock() {
-    data_mutex.lock();
-}
-
-void Map::unlock() {
-    data_mutex.unlock();
+    node = (object != data.end()) ? object->second->previous : NULL;
+    return (node) ? node->element : NULL;
 }

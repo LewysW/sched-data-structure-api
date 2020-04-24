@@ -5,8 +5,8 @@ interface:
 	ar rcs libinterface.a Map.o doublyLinkedList.o api.o
 
 application:
-	gcc -c -g main.c
-	gcc -Wall -Wextra -g main.o libinterface.a -o app -lstdc++
+	gcc -c -g main.c test_map_benchmark.c
+	gcc -Wall -Wextra -g main.o test_map_benchmark.o libinterface.a -o app -lstdc++
 
 clean:
 	rm -rf *.a *.o app

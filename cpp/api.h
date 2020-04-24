@@ -2,13 +2,15 @@
 #define STARDUST_EXPERIMENTAL_SCHED_API_H
 #include <stdint.h>
 
-typedef struct Map_s { } Map_s;
+typedef struct Map_s {} Map_s;
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
 Map_s* createMap();
+
+void deleteMap(Map_s** map);
 
 int contains(Map_s* map, void* key);
 
@@ -32,13 +34,8 @@ void* next(Map_s* map, void* element);
 
 void* previous(Map_s* map, void* element);
 
-void lock_map(Map_s* map);
-
-void unlock_map(Map_s* map);
-
 #ifdef __cplusplus
 }
 #endif
 
 #endif //STARDUST_EXPERIMENTAL_SCHED_API_H
-

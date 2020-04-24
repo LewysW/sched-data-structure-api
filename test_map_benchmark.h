@@ -6,7 +6,7 @@
 #include "cpp/api.h"
 
 #define MAX_NUM_THREADS 10000
-#define INCREMENT 1000
+#define INCREMENT 100
 #define NUM_JOINEES 10
 #define NUM_READINGS 5
 

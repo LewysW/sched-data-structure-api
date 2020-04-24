@@ -18,7 +18,7 @@ void test_map_benchmark() {
       clock_t end = clock();
 
       double duration = (double)(end - begin) / (CLOCKS_PER_SEC / 1000);
-      printf("%d, %lf\n", num_test_threads, duration);
+      printf("%d, %lf\n", num_test_threads * NUM_JOINEES, duration);
 
       //Removes threads from list
       map_clear_threads();

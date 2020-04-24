@@ -2,15 +2,15 @@
 #define STARDUST_EXPERIMENTAL_THREAD_MAP_H
 #include "doublyLinkedList.h"
 #include <iostream>
-#include <unordered_map>
-//#include <map>
+//#include <unordered_map>
+#include <map>
 #include <mutex>
 #include <algorithm>
 
 class Map {
 private:
-    std::unordered_map<void*, DoublyLinkedListNode*> data;
-    //std::map<void*, DoublyLinkedListNode*> data;
+    //std::unordered_map<void*, DoublyLinkedListNode*> data;
+    std::map<void*, DoublyLinkedListNode*> data;
     DoublyLinkedList elements;
     std::recursive_mutex data_mutex;
 public:
